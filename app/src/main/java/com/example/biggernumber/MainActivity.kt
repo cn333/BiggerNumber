@@ -1,10 +1,12 @@
 package com.example.biggernumber
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,14 +14,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var btnLeft: Button
     private lateinit var btnRight: Button
     private lateinit var tvPoints: TextView
+    private lateinit var clBackground: ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        btnLeft = findViewById<Button>(R.id.btnLeft)
-        btnRight = findViewById<Button>(R.id.btnRight)
-        tvPoints = findViewById<TextView>(R.id.tvPoints)
+        btnLeft = findViewById(R.id.btnLeft)
+        btnRight = findViewById(R.id.btnRight)
+        tvPoints = findViewById(R.id.tvPoints)
+        clBackground = findViewById(R.id.clBackground)
 
         assignNumberstoButtons()
 
@@ -49,10 +53,12 @@ class MainActivity : AppCompatActivity() {
         val isCorrect = if (isLeftButtonSelected) leftNum > rightNum else rightNum > leftNum
         if (isCorrect) {
             points++
-            Toast.makeText(this, "Correct!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show()
+            clBackground.setBackgroundColor(Color.GREEN)
         } else {
             points--
-            Toast.makeText(this, "Wrong Answer!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Wrong Answer!", Toast.LENGTH_SHORT).show()
+            clBackground.setBackgroundColor(Color.RED)
         }
         tvPoints.text = "Points: $points"
         assignNumberstoButtons()
